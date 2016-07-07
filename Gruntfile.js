@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         dest: 'public/dist/<%= pkg.name %>.js'
       }
     },
-//wefoaweihf
+
     mochaTest: {
       test: {
         options: {
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
 
     eslint: {
       target: [
-        'public/client/**/*.js', 'app/**/*.js', 'lib/**/*.js', './*.js'
+        'public/client/**/*.js', 'app/**/*.js', './*.js'
       ]
     },
 
@@ -87,11 +87,11 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', [
-    'mochaTest'
+  grunt.registerTask('checks', [
+    'mochaTest', 'eslint'
   ]);
 
-  grunt.registerTask('build', ['eslint', 'concat', 'uglify', 'cssmin'
+  grunt.registerTask('build', ['concat', 'uglify', 'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {
@@ -103,6 +103,7 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('deploy', [
+    'checks', 'build'
       // add your production server task here
   ]);
 
