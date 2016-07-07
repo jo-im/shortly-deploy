@@ -9,12 +9,13 @@ var userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('save', function(next) {
-  bcrypt.hash(this.password, null, null, function(err, hash) {
+  var model = this;
+  bcrypt.hash(model.password, null, null, function(err, hash) {
     if (err) {
       console.log('Error hashing password');
       throw err;
     }
-    this.password = hash;
+    model.password = hash;
     next();
   });
 });
